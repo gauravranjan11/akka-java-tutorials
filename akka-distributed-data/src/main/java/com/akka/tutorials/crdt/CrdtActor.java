@@ -51,7 +51,7 @@ public class CrdtActor extends UntypedAbstractActor {
                 });
             }
         } else if (message instanceof ClusterMessages.ReadAllData) {
-            CrdtQueries.readAllFileMessages().thenAccept(map -> {
+            CrdtQueries.readAllMessages().thenAccept(map -> {
                 map.getEntries().forEach((k, v) -> {
                     log.info("read-key:" + k + " read-message:" + v.getMessage());
                 });
@@ -59,13 +59,13 @@ public class CrdtActor extends UntypedAbstractActor {
         } else if (message instanceof ClusterMessages.GetData) {
 
             ClusterMessages.GetData getData = (ClusterMessages.GetData) message;
-            CrdtQueries.readAllFileMessages().thenAccept(map -> {
+            CrdtQueries.readAllMessages().thenAccept(map -> {
                 log.info("get-key:" + getData.getKey() + " get-message:" + map.get(getData.getKey()).get().getMessage());
             });
         } else if (message instanceof ClusterMessages.UpdateData) {
 
             ClusterMessages.UpdateData updateData = (ClusterMessages.UpdateData) message;
-            CrdtQueries.updateFileMessage(updateData.getCrdtMessage(), node).thenAccept(res -> {
+            CrdtQueries.updateMessage(updateData.getCrdtMessage(), node).thenAccept(res -> {
                 if (res instanceof Replicator.UpdateSuccess) {
                     Replicator.UpdateSuccess updateSuccess = (Replicator.UpdateSuccess) res;
                     CrdtMessage fileMessage = (CrdtMessage) updateSuccess.getRequest().get();

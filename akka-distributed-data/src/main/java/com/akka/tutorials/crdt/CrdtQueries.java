@@ -29,7 +29,7 @@ public class CrdtQueries {
      *
      * @return ormap completion stage object
      */
-    public static CompletionStage<ORMap<String, CrdtMessage>> readAllFileMessages() {
+    public static CompletionStage<ORMap<String, CrdtMessage>> readAllMessages() {
         CompletableFuture<Object> messageMap = ask(replicator,
                 new Replicator.Get<ORMap<String, CrdtMessage>>(KEY, readAll),
                 timeoutCache).toCompletableFuture();
@@ -50,7 +50,7 @@ public class CrdtQueries {
      * @param node
      * @return
      */
-    public static CompletableFuture<Object> updateFileMessage(CrdtMessage crdtMessage, SelfUniqueAddress node) {
+    public static CompletableFuture<Object> updateMessage(CrdtMessage crdtMessage, SelfUniqueAddress node) {
         Replicator.Update<ORMap<String, CrdtMessage>> update =
                 new Replicator.Update<>(KEY, ORMap.create(), writeAll,
                         Optional.of(crdtMessage),
