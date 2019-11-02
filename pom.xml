@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.granjan.akka</groupId>
-    <artifactId>java-tutorials</artifactId>
+    <artifactId>akka-java-tutorials</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -120,51 +120,18 @@
             <version>2.1.0</version>
         </dependency>
     </dependencies>
-    <!--    <build>-->
-    <!--        <finalName>filestream</finalName>-->
-    <!--        <plugins>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-compiler-plugin</artifactId>-->
-    <!--                <version>3.8.0</version>-->
-    <!--                <configuration>-->
-    <!--                    <release>11</release>  &lt;!&ndash;or <release>10</release>&ndash;&gt;-->
-    <!--                </configuration>-->
-    <!--            </plugin>-->
-    <!--            <plugin>-->
-    <!--                <groupId>org.apache.maven.plugins</groupId>-->
-    <!--                <artifactId>maven-shade-plugin</artifactId>-->
-    <!--                <version>3.2.1</version>-->
-    <!--                <executions>-->
-    <!--                    &lt;!&ndash; Run shade goal on package phase &ndash;&gt;-->
-    <!--                    <execution>-->
-    <!--                        <phase>package</phase>-->
-    <!--                        <goals>-->
-    <!--                            <goal>shade</goal>-->
-    <!--                        </goals>-->
-    <!--                        <configuration>-->
-    <!--                            <artifactSet>-->
-    <!--                                <includes>-->
-    <!--                                    <include>*:*</include>-->
-    <!--                                </includes>-->
-    <!--                            </artifactSet>-->
-    <!--                            <transformers>-->
-    <!--                                <transformer-->
-    <!--                                        implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">-->
-    <!--                                    <resource>reference.conf</resource>-->
-    <!--                                </transformer>-->
-    <!--                                <transformer-->
-    <!--                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">-->
-    <!--                                    <manifestEntries>-->
-    <!--                                        <Main-Class>akka.Main</Main-Class>-->
-    <!--                                    </manifestEntries>-->
-    <!--                                </transformer>-->
-    <!--                            </transformers>-->
-    <!--                        </configuration>-->
-    <!--                    </execution>-->
-    <!--                </executions>-->
-    <!--            </plugin>-->
-    <!--        </plugins>-->
-    <!--    </build>-->
+        <build>
+            <finalName>akka-java-tutorials</finalName>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.8.0</version>
+                    <configuration>
+                        <release>11</release>  <!--or <release>10</release>-->
+                    </configuration>
+                </plugin>
+            </plugins>
+        </build>
 
 </project>
