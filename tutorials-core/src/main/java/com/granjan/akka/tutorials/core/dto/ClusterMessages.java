@@ -1,6 +1,5 @@
-package com.akka.tutorials.core;
+package com.granjan.akka.tutorials.core.dto;
 
-import com.akka.tutorials.dto.CrdtMessage;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,6 +9,10 @@ public class ClusterMessages implements Serializable {
 
 
     public static class ReadAllData extends ClusterMessages {
+
+    }
+
+    public static class SingletonScheduler extends ClusterMessages {
 
     }
 

@@ -1,4 +1,4 @@
-package com.akka.tutorials.crdt;
+package com.granjan.akka.tutorials.distributed.data.crdt;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
@@ -8,8 +8,8 @@ import akka.cluster.ddata.*;
 import akka.cluster.pubsub.DistributedPubSub;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
-import com.akka.tutorials.core.ClusterMessages;
-import com.akka.tutorials.dto.CrdtMessage;
+import com.granjan.akka.tutorials.core.dto.ClusterMessages;
+import com.granjan.akka.tutorials.core.dto.CrdtMessage;
 
 public class CrdtActor extends UntypedAbstractActor {
 

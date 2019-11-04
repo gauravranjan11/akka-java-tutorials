@@ -1,9 +1,9 @@
-package com.akka.tutorials.crdt;
+package com.granjan.akka.tutorials.distributed.data.crdt;
 
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.cluster.ddata.*;
-import com.akka.tutorials.dto.CrdtMessage;
+import com.granjan.akka.tutorials.core.dto.CrdtMessage;
 
 import java.time.Duration;
 import java.util.Optional;

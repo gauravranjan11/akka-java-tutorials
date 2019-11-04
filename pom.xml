@@ -12,6 +12,8 @@
     <modules>
         <module>akka-distributed-data</module>
         <module>akka-cluster</module>
+        <module>akka-singleton-actor</module>
+        <module>tutorials-core</module>
     </modules>
     <name>akka-java-tutorials</name>
     <dependencies>
