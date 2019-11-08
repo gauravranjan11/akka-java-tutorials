@@ -5,7 +5,6 @@ import akka.actor.ActorSystem;
 import akka.actor.Props;
 import akka.actor.UntypedAbstractActor;
 import akka.cluster.ddata.*;
-import akka.cluster.pubsub.DistributedPubSub;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 import com.granjan.akka.tutorials.core.dto.ClusterMessages;
@@ -14,7 +13,6 @@ import com.granjan.akka.tutorials.core.dto.CrdtMessage;
 public class CrdtActor extends UntypedAbstractActor {
 
     ActorSystem actorSystem;
-    ActorRef mediator;
     LoggingAdapter log;
     ActorRef replicator;
     private static final Key<ORMap<String, CrdtMessage>> KEY = ORMapKey.create("crdt-tutorial");
@@ -33,7 +31,6 @@ public class CrdtActor extends UntypedAbstractActor {
 
     public CrdtActor(ActorSystem actorSystem) {
         this.actorSystem = actorSystem;
-        this.mediator = DistributedPubSub.get(actorSystem).mediator();
         log = Logging.getLogger(actorSystem, CrdtActor.class);
         replicator = DistributedData.get(actorSystem).replicator();
         node = DistributedData.get(actorSystem).selfUniqueAddress();

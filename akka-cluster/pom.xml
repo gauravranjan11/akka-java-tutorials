@@ -27,6 +27,11 @@
             <artifactId>akka-singleton-actor</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.granjan.akka</groupId>
+            <artifactId>akka-distributed-publisher-subscriber</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

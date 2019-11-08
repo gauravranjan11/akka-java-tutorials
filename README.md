@@ -6,6 +6,11 @@ Even though the documentation of Akka is quite comprehensive I feel it requires 
 <br />
 To overcome this I have started this to help people with sample akka code which they can quickly integrate in their applications and enjoy these really cool and powerfull tools.
 
+The blog post related to these  can be found at following locations
+
+1. [Akka Java Tutorials Part 1-AKKA Distributed Data](https://medium.com/@gauravranjan11/akka-java-tutorials-part-1-akka-distributed-data-e1de6bbe6286)
+2. [Akka Java Tutorials Part 2- How to build a Scheduler using Akka Cluster Singleton & Akka Scheduler](https://medium.com/@gauravranjan11/akka-java-tutorials-part-2-how-to-build-a-scheduler-using-akka-cluster-singleton-akka-scheduler-d02e300e525c)
+
 ## Run the project
 ```
 mvn clean package
@@ -44,4 +49,10 @@ The cluster singleton is found here
 ```
 00:10:52.550 [akka-java-tutorials-akka.actor.default-dispatcher-2] INFO akka.cluster.singleton.ClusterSingletonProxy - Singleton identified at [akka://akka-java-tutorials/user/ClusterSingletonActorManager/ClusterSingletonActorManager]
 00:10:53.611 [akka-java-tutorials-akka.actor.default-dispatcher-19] INFO com.granjan.akka.tutorials.cluster.singleton.actor.ClusterSingletonActor - Scheduler ran after 20 seconds
+```
+Akka distributed publisher subscriber logs
+
+```
+00:26:10.559 [akka-java-tutorials-akka.actor.default-dispatcher-17] INFO com.granjan.akka.tutorials.distributed.publisher.Publisher - publishing message in akka cluster
+00:26:10.560 [akka-java-tutorials-akka.actor.default-dispatcher-17] INFO com.granjan.akka.tutorials.distributed.subscriber.Subscriber - message received from publisher in akka cluster
 ```

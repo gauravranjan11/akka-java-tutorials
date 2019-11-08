@@ -6,6 +6,8 @@ import akka.stream.ActorMaterializer;
 import akka.stream.Materializer;
 import com.granjan.akka.tutorials.distributed.data.crdt.CrdtActor;
 import com.granjan.akka.tutorials.distributed.data.crdt.CrdtQueries;
+import com.granjan.akka.tutorials.distributed.publisher.Publisher;
+import com.granjan.akka.tutorials.distributed.subscriber.Subscriber;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
@@ -14,6 +16,8 @@ public class ActorInitializer {
     private static ActorSystem actorSystem;
     private static Materializer mat;
     static ActorRef crdtActor;
+    static ActorRef publisher;
+    static ActorRef subscriber;
     private static ActorRef clusterProxy;
 
     public static void init() {
@@ -22,6 +26,8 @@ public class ActorInitializer {
         mat = ActorMaterializer.create(actorSystem);
         CrdtQueries.init(actorSystem);
         crdtActor = actorSystem.actorOf(CrdtActor.props(actorSystem));
+        publisher=actorSystem.actorOf(Publisher.props(actorSystem));
+        subscriber=actorSystem.actorOf(Subscriber.props(actorSystem));
 
     }
 

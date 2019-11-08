@@ -8,6 +8,10 @@ import java.io.Serializable;
 public class ClusterMessages implements Serializable {
 
 
+    public static class PublishMessage extends ClusterMessages {
+
+    }
+
     public static class ReadAllData extends ClusterMessages {
 
     }

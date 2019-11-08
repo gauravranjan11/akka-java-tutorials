@@ -14,6 +14,7 @@
         <module>akka-cluster</module>
         <module>akka-singleton-actor</module>
         <module>tutorials-core</module>
+        <module>akka-distributed-publisher-subscriber</module>
     </modules>
     <name>akka-java-tutorials</name>
     <dependencies>
