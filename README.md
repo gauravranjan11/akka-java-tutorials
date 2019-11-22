@@ -11,6 +11,7 @@ The blog post related to these  can be found at following locations
 1. [Akka Java Tutorials Part 1 - AKKA Distributed Data](https://medium.com/@gauravranjan11/akka-java-tutorials-part-1-akka-distributed-data-e1de6bbe6286)
 2. [Akka Java Tutorials Part 2 - How to build a Scheduler using Akka Cluster Singleton & Akka Scheduler](https://medium.com/@gauravranjan11/akka-java-tutorials-part-2-how-to-build-a-scheduler-using-akka-cluster-singleton-akka-scheduler-d02e300e525c)
 3. [Akka Java Tutorials Part 3 - Distributed Publisher Subscriber  ](https://medium.com/@gauravranjan11/akka-java-tutorials-part-3-distributed-publisher-subscriber-bd941aef822d)
+4. [Akka Java Tutorials Part 4- JDBC Query Processing using Akka Stream](https://medium.com/@gauravranjan11/akka-java-tutorials-part-4-jdbc-query-processing-using-akka-stream-230b03922b85)
 
 ## Run the project
 ```
