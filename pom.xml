@@ -15,6 +15,7 @@
         <module>akka-singleton-actor</module>
         <module>tutorials-core</module>
         <module>akka-distributed-publisher-subscriber</module>
+        <module>alpakka-slickjdbc</module>
     </modules>
     <name>akka-java-tutorials</name>
     <dependencies>
@@ -91,7 +92,12 @@
             <artifactId>akka-stream-alpakka-slick_2.13</artifactId>
             <version>1.1.2</version>
         </dependency>
-
+        <!-- h2 database -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.191</version>
+        </dependency>
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -123,8 +129,9 @@
             <version>2.1.0</version>
         </dependency>
     </dependencies>
-        <build>
-            <finalName>akka-java-tutorials</finalName>
+    <build>
+        <finalName>akka-java-tutorials</finalName>
+        <pluginManagement>
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -134,7 +141,17 @@
                         <release>11</release>  <!--or <release>10</release>-->
                     </configuration>
                 </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>1.6.0</version>
+                    <configuration>
+                        <mainClass>none</mainClass>
+                        <skip>true</skip>
+                    </configuration>
+                </plugin>
             </plugins>
-        </build>
+        </pluginManagement>
+    </build>
 
 </project>

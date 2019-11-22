@@ -14,9 +14,7 @@ The blog post related to these  can be found at following locations
 
 ## Run the project
 ```
-mvn clean package
-cd ./akka-cluster/target/
-java -jar akka-cluster-1.0-SNAPSHOT.jar
+mvn exec:java
 ```
 
 You should see following output
@@ -46,7 +44,7 @@ You should see following output
 00:10:53.611 [akka-java-tutorials-akka.actor.default-dispatcher-19] INFO com.granjan.akka.tutorials.cluster.singleton.actor.ClusterSingletonActor - Scheduler ran after 20 seconds
 
 ```
-The cluster singleton is found here
+The cluster singleton logs found here
 ```
 00:10:52.550 [akka-java-tutorials-akka.actor.default-dispatcher-2] INFO akka.cluster.singleton.ClusterSingletonProxy - Singleton identified at [akka://akka-java-tutorials/user/ClusterSingletonActorManager/ClusterSingletonActorManager]
 00:10:53.611 [akka-java-tutorials-akka.actor.default-dispatcher-19] INFO com.granjan.akka.tutorials.cluster.singleton.actor.ClusterSingletonActor - Scheduler ran after 20 seconds
@@ -56,4 +54,65 @@ Akka distributed publisher subscriber logs
 ```
 00:26:10.559 [akka-java-tutorials-akka.actor.default-dispatcher-17] INFO com.granjan.akka.tutorials.distributed.publisher.Publisher - publishing message in akka cluster
 00:26:10.560 [akka-java-tutorials-akka.actor.default-dispatcher-17] INFO com.granjan.akka.tutorials.distributed.subscriber.Subscriber - message received from publisher in akka cluster
+```
+
+Akka streams for JDBC queries
+
+```
+23:41:24.079 [db-1] DEBUG slick.basic.BasicBackend.stream - Starting initial streaming action, realDemand = 16
+23:41:24.082 [db-1] DEBUG slick.jdbc.JdbcBackend.statement - Preparing statement: select id,age,name,city from  employees
+23:41:24.090 [db-1] DEBUG slick.jdbc.JdbcBackend.statement - Executing prepared statement: prep2: select id,age,name,city from  employees
+23:41:24.091 [db-1] DEBUG slick.jdbc.JdbcBackend.statementAndParameter - Executing prepared statement: prep2: select id,age,name,city from  employees
+23:41:24.093 [db-1] DEBUG slick.jdbc.JdbcBackend.benchmark - Execution of prepared statement took 1ms
+23:41:24.111 [akka-java-tutorials-akka.actor.default-dispatcher-15] INFO com.granjan.akka.tutorials.slick.jdbc.QueryRunner - employee id: 1, employee name :gaurav, employee city: Bangalore
+23:41:24.111 [akka-java-tutorials-akka.actor.default-dispatcher-15] INFO com.granjan.akka.tutorials.slick.jdbc.QueryRunner - employee id: 2, employee name :ranjan, employee city: Bangalore
+23:41:24.131 [db-1] DEBUG slick.jdbc.StatementInvoker.result - /----+-----+--------+-----------\
+23:41:24.131 [db-1] DEBUG slick.jdbc.StatementInvoker.result - | 1  | 2   | 3      | 4         |
+23:41:24.131 [db-1] DEBUG slick.jdbc.StatementInvoker.result - | ID | AGE | NAME   | CITY      |
+23:41:24.131 [db-1] DEBUG slick.jdbc.StatementInvoker.result - |----+-----+--------+-----------|
+23:41:24.131 [db-1] DEBUG slick.jdbc.StatementInvoker.result - | 1  | 32  | gaurav | Bangalore |
+23:41:24.131 [db-1] DEBUG slick.jdbc.StatementInvoker.result - | 2  | 32  | ranjan | Bangalore |
+23:41:24.132 [db-1] DEBUG slick.jdbc.StatementInvoker.result - \----+-----+--------+-----------/
+23:41:24.153 [db-1] DEBUG slick.basic.BasicBackend.stream - Signaling onComplete()
+23:41:24.154 [db-1] DEBUG slick.basic.BasicBackend.stream - Sent up to 16 elements - Stream completely delivered
+23:41:24.155 [db-1] DEBUG slick.basic.BasicBackend.stream - Finished streaming action
+23:41:24.216 [akka-java-tutorials-akka.actor.default-dispatcher-4] DEBUG slick.basic.BasicBackend.action - #1: StreamingInvokerAction$HeadAction [update employees set city='Blr' where id=1]
+23:41:24.234 [db-2] DEBUG slick.jdbc.JdbcBackend.statement - Preparing statement: update employees set city='Blr' where id=1
+23:41:24.235 [db-2] DEBUG slick.jdbc.JdbcBackend.statement - Executing prepared statement: prep6: update employees set city='Blr' where id=1
+23:41:24.235 [db-2] DEBUG slick.jdbc.JdbcBackend.statementAndParameter - Executing prepared statement: prep6: update employees set city='Blr' where id=1
+23:41:24.238 [db-2] DEBUG slick.jdbc.JdbcBackend.benchmark - Execution of prepared statement took 2ms
+23:41:24.239 [db-2] DEBUG slick.jdbc.StatementInvoker.result - 1 rows affected
+23:41:24.252 [akka-java-tutorials-akka.actor.default-dispatcher-15] INFO com.granjan.akka.tutorials.slick.jdbc.QueryRunner - updated employee id 1 city to Blr
+23:41:24.255 [akka-java-tutorials-akka.actor.default-dispatcher-2] DEBUG slick.basic.BasicBackend.action - #1: StreamingInvokerAction$HeadAction [delete from employees where id=2]
+23:41:24.272 [db-3] DEBUG slick.jdbc.JdbcBackend.statement - Preparing statement: delete from employees where id=2
+23:41:24.272 [db-3] DEBUG slick.jdbc.JdbcBackend.statement - Executing prepared statement: prep10: delete from employees where id=2
+23:41:24.272 [db-3] DEBUG slick.jdbc.JdbcBackend.statementAndParameter - Executing prepared statement: prep10: delete from employees where id=2
+23:41:24.273 [db-3] DEBUG slick.jdbc.JdbcBackend.benchmark - Execution of prepared statement took 413µs
+23:41:24.273 [db-3] DEBUG slick.jdbc.StatementInvoker.result - 1 rows affected
+23:41:24.283 [akka-java-tutorials-akka.actor.default-dispatcher-15] INFO com.granjan.akka.tutorials.slick.jdbc.QueryRunner - delete employee id 2
+23:41:24.286 [akka-java-tutorials-akka.actor.default-dispatcher-15] DEBUG slick.basic.BasicBackend.action - #1: StreamingInvokerAction$HeadAction [insert into employees values(3,'Avi',23,'Hyd')]
+23:41:24.304 [db-4] DEBUG slick.jdbc.JdbcBackend.statement - Preparing statement: insert into employees values(3,'Avi',23,'Hyd')
+23:41:24.305 [db-4] DEBUG slick.jdbc.JdbcBackend.statement - Executing prepared statement: prep14: insert into employees values(3,'Avi',23,'Hyd')
+23:41:24.305 [db-4] DEBUG slick.jdbc.JdbcBackend.statementAndParameter - Executing prepared statement: prep14: insert into employees values(3,'Avi',23,'Hyd')
+23:41:24.308 [db-4] DEBUG slick.jdbc.JdbcBackend.benchmark - Execution of prepared statement took 2ms
+23:41:24.308 [db-4] DEBUG slick.jdbc.StatementInvoker.result - 1 rows affected
+23:41:24.347 [akka-java-tutorials-akka.actor.default-dispatcher-15] INFO com.granjan.akka.tutorials.slick.jdbc.QueryRunner - inserted employee id 3
+23:41:24.350 [akka-java-tutorials-akka.actor.default-dispatcher-15] DEBUG slick.basic.BasicBackend.stream - Signaling onSubscribe(slick.jdbc.JdbcBackend$JdbcStreamingActionContext@72cb1851)
+23:41:24.350 [akka-java-tutorials-akka.actor.default-dispatcher-15] DEBUG slick.basic.BasicBackend.action - #1: StreamingResultAction [select id,age,name,city from  employees]
+23:41:24.367 [db-5] DEBUG slick.basic.BasicBackend.stream - Starting initial streaming action, realDemand = 16
+23:41:24.367 [db-5] DEBUG slick.jdbc.JdbcBackend.statement - Preparing statement: select id,age,name,city from  employees
+23:41:24.368 [db-5] DEBUG slick.jdbc.JdbcBackend.statement - Executing prepared statement: prep18: select id,age,name,city from  employees
+23:41:24.368 [db-5] DEBUG slick.jdbc.JdbcBackend.statementAndParameter - Executing prepared statement: prep18: select id,age,name,city from  employees
+23:41:24.368 [db-5] DEBUG slick.jdbc.JdbcBackend.benchmark - Execution of prepared statement took 140µs
+23:41:24.369 [akka-java-tutorials-akka.actor.default-dispatcher-15] INFO com.granjan.akka.tutorials.slick.jdbc.QueryRunner - employee id: 1, employee name :gaurav, employee city: Blr
+23:41:24.369 [akka-java-tutorials-akka.actor.default-dispatcher-15] INFO com.granjan.akka.tutorials.slick.jdbc.QueryRunner - employee id: 3, employee name :Avi, employee city: Hyd
+23:41:24.369 [db-5] DEBUG slick.jdbc.StatementInvoker.result - /----+-----+--------+------\
+23:41:24.369 [db-5] DEBUG slick.jdbc.StatementInvoker.result - | 1  | 2   | 3      | 4    |
+23:41:24.370 [db-5] DEBUG slick.jdbc.StatementInvoker.result - | ID | AGE | NAME   | CITY |
+23:41:24.370 [db-5] DEBUG slick.jdbc.StatementInvoker.result - |----+-----+--------+------|
+23:41:24.370 [db-5] DEBUG slick.jdbc.StatementInvoker.result - | 1  | 32  | gaurav | Blr  |
+23:41:24.370 [db-5] DEBUG slick.jdbc.StatementInvoker.result - | 3  | 23  | Avi    | Hyd  |
+23:41:24.370 [db-5] DEBUG slick.jdbc.StatementInvoker.result - \----+-----+--------+------/
+
+
 ```

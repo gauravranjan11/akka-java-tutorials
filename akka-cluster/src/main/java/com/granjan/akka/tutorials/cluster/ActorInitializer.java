@@ -4,6 +4,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.stream.ActorMaterializer;
 import akka.stream.Materializer;
+import akka.stream.alpakka.slick.javadsl.SlickSession;
 import com.granjan.akka.tutorials.distributed.data.crdt.CrdtActor;
 import com.granjan.akka.tutorials.distributed.data.crdt.CrdtQueries;
 import com.granjan.akka.tutorials.distributed.publisher.Publisher;
@@ -19,15 +20,17 @@ public class ActorInitializer {
     static ActorRef publisher;
     static ActorRef subscriber;
     private static ActorRef clusterProxy;
+    private static SlickSession slickSession;
 
     public static void init() {
         config = setConfig();
         actorSystem = ActorSystem.create("akka-java-tutorials", config);
         mat = ActorMaterializer.create(actorSystem);
+        slickSession = SlickSession.forConfig(config.getConfig("slick-h2"));
         CrdtQueries.init(actorSystem);
         crdtActor = actorSystem.actorOf(CrdtActor.props(actorSystem));
-        publisher=actorSystem.actorOf(Publisher.props(actorSystem));
-        subscriber=actorSystem.actorOf(Subscriber.props(actorSystem));
+        publisher = actorSystem.actorOf(Publisher.props(actorSystem));
+        subscriber = actorSystem.actorOf(Subscriber.props(actorSystem));
 
     }
 
@@ -47,5 +50,13 @@ public class ActorInitializer {
 
     public static ActorSystem getActorSystem() {
         return actorSystem;
+    }
+
+    public static SlickSession getSlickSession() {
+        return slickSession;
+    }
+
+    public static Materializer getMat() {
+        return mat;
     }
 }

@@ -34,14 +34,14 @@ public class ClusterSingletonActor extends UntypedAbstractActor {
     @Override
     public void onReceive(Object message) throws Throwable {
         if (message instanceof ClusterMessages.SingletonScheduler) {
-            log.info("Scheduler ran after 20 seconds");
+            log.info("Singleton Scheduler ran");
         }
     }
 
     private void schedule() {
         this.singletonScheduler = actorSystem.scheduler().schedule(
                 scala.concurrent.duration.Duration.create(new Random().nextInt(5), TimeUnit.SECONDS),
-                scala.concurrent.duration.Duration.create(20, TimeUnit.SECONDS),
+                scala.concurrent.duration.Duration.create(1, TimeUnit.MINUTES),
                 new Runnable() {
                     @Override
                     public void run() {
