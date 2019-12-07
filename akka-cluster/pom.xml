@@ -37,6 +37,11 @@
             <artifactId>alpakka-slickjdbc</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.granjan.akka</groupId>
+            <artifactId>akka-http-client</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

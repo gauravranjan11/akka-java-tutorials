@@ -16,6 +16,7 @@
         <module>tutorials-core</module>
         <module>akka-distributed-publisher-subscriber</module>
         <module>alpakka-slickjdbc</module>
+        <module>akka-http-client</module>
     </modules>
     <name>akka-java-tutorials</name>
     <dependencies>

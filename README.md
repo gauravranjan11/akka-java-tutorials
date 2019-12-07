@@ -117,3 +117,10 @@ Akka streams for JDBC queries
 
 
 ```
+
+Akka Http Logs
+
+```
+15:42:26.265 [akka-java-tutorials-akka.actor.default-dispatcher-18] INFO com.granjan.akka.tutorials.http.RestCalls - Akka HTTP POST employee id:114369 employee name:akka-http
+15:42:26.293 [akka-java-tutorials-akka.actor.default-dispatcher-17] INFO com.granjan.akka.tutorials.http.RestCalls - Akka HTTP GET employee id:1 employee name:Obed employee age:37
+```
