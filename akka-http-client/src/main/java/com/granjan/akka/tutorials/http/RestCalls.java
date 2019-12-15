@@ -8,10 +8,15 @@ import akka.http.javadsl.marshallers.jackson.Jackson;
 import akka.http.javadsl.model.*;
 import akka.http.javadsl.unmarshalling.Unmarshaller;
 import akka.stream.Materializer;
+import akka.stream.javadsl.RestartSource;
+import akka.stream.javadsl.Sink;
+import akka.stream.javadsl.Source;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
+import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
 
 public class RestCalls {
@@ -33,28 +38,37 @@ public class RestCalls {
 
         log.info("Demo Akka Http");
         getEmployeeDetails(1);
-        postEmployeeDetails(EmployeeResponseDO.builder().name("akka-http").employee_name("akka-http").salary("40").age("32").build());
+        postEmployeeDetails(EmployeeResponseDO.builder().name("akka-http:"+Math.random()).employee_name("akka-http").salary("40").age("32").build());
     }
 
     public static CompletionStage<EmployeeResponseDO> getEmployeeDetails(int id) {
         Gson gson = new Gson();
-        return http.singleRequest(HttpRequest.create().withMethod(HttpMethods.GET)
-                .withUri("http://dummy.restapiexample.com/api/v1/employee/" + id)).thenCompose(res -> {
-            if (res.status().intValue() != 200) {
-                res.discardEntityBytes(materializer);
-                log.info("error in http status");
-                throw new RuntimeException();
-            } else {
-                return unmarshaller.unmarshal(res.entity().withContentType(ContentTypes.APPLICATION_JSON), materializer).<EmployeeResponseDO>thenApply(employee -> {
+        //adding restart logic on rest calls in case of failures
+        return RestartSource.onFailuresWithBackoff(
+                Duration.ofSeconds(3),
+                Duration.ofSeconds(15),
+                0.2,
+                2,
+                () -> Source.fromCompletionStage(http.singleRequest(HttpRequest.create().withMethod(HttpMethods.GET)
+                        .withUri("http://dummy.restapiexample.com/api/v1/employee/" + id)).thenCompose(res -> {
+                    if (res.status().intValue() != 200) {
+                        res.discardEntityBytes(materializer);
+                        log.info("error in http status");
+                        throw new RuntimeException();
+                    } else {
+                        return unmarshaller.unmarshal(res.entity().withContentType(ContentTypes.APPLICATION_JSON), materializer).<EmployeeResponseDO>thenApply(employee -> {
+                            return employee;
+                        });
+                    }
+                }).exceptionally(ex -> {
+                    ex.printStackTrace();
+                    throw new RuntimeException(ex);
+                })).mapAsync(1, res -> CompletableFuture.completedFuture(res))).
+                runWith(Sink.<EmployeeResponseDO,EmployeeResponseDO>fold(null, (total, next) -> {
+                    log.info("Akka HTTP GET" + " employee id:" + next.id + " employee name:" + next.employee_name + " employee age:" + next.employee_age);
+                    return next;
+                }), materializer);
 
-                    log.info("Akka HTTP GET" + " employee id:" + employee.id + " employee name:" + employee.employee_name + " employee age:" + employee.employee_age);
-                    return employee;
-                });
-            }
-        }).exceptionally(ex -> {
-            ex.printStackTrace();
-            throw new RuntimeException(ex);
-        });
     }
 
     public static CompletionStage<EmployeeResponseDO> postEmployeeDetails(EmployeeResponseDO employeeResponseDO) {
