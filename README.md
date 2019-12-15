@@ -12,6 +12,7 @@ The blog post related to these  can be found at following locations
 2. [Akka Java Tutorials Part 2 - How to build a Scheduler using Akka Cluster Singleton & Akka Scheduler](https://medium.com/@gauravranjan11/akka-java-tutorials-part-2-how-to-build-a-scheduler-using-akka-cluster-singleton-akka-scheduler-d02e300e525c)
 3. [Akka Java Tutorials Part 3 - Distributed Publisher Subscriber  ](https://medium.com/@gauravranjan11/akka-java-tutorials-part-3-distributed-publisher-subscriber-bd941aef822d)
 4. [Akka Java Tutorials Part 4- JDBC Query Processing using Akka Stream](https://medium.com/@gauravranjan11/akka-java-tutorials-part-4-jdbc-query-processing-using-akka-stream-230b03922b85)
+5. [Akka Java Tutorials Part 5 — Asynchronous HTTP calls using AKKA HTTP](https://medium.com/@gauravranjan11/akka-java-tutorials-part-5-asynchronous-http-calls-using-akka-http-c292f2187ba1)
 
 ## Run the project
 ```
