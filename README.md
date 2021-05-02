@@ -15,10 +15,24 @@ The blog post related to these  can be found at following locations
 5. [Akka Java Tutorials Part 5 — Asynchronous HTTP calls using AKKA HTTP](https://medium.com/@gauravranjan11/akka-java-tutorials-part-5-asynchronous-http-calls-using-akka-http-c292f2187ba1)
 
 ## Run the project
+**If you are on java 11**
 ```
+mvn clean install
 mvn exec:java
 ```
-
+**if you are on java 8**
+In the parent pom in the plugin management in the configuration tab replace release tag with
+```
+ <configuration>
+   <source>1.8</source>
+   <target>1.8</target>
+ </configuration>
+```
+And then run
+```
+mvn clean install
+mvn exec:java
+```
 You should see following output
 
 ```
